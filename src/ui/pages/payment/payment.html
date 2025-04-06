@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пополнить баланс</title>
+    <link rel="stylesheet" href="../../../global.css">
+    <link rel="stylesheet" href="./payment.css">
+    <link rel="stylesheet" href="../../shared/flex-column.css">
+    <link rel="stylesheet" href="../../shared/button.css">
+    <link rel="stylesheet" href="../../shared/input.css"> 
+</head>
+<body>
+    <div class="container">
+        <h1>Пополнить баланс</h1>
+        <p>Баланс: 1000 рублей</p>
+        <div class="flex-column">
+            <input type="number" id="amount" class="custom-input" placeholder="Сумма" />
+            <div class="button-container">
+                <button class="button" id="rechargeButton">Пополнить</button>
+                <button class="button" >Выйти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключаем внешний JavaScript файл -->
+    <script src="./payment.js"></script>
+</body>
+</html>

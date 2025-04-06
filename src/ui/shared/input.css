@@ -1,0 +1,38 @@
+/* Стиль для кастомных инпутов */
+.custom-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+/* Фокус на инпуте */
+.custom-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    background-color: #e8f5e9;
+}
+
+/* Плейсхолдеры с эффектом */
+.custom-input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* Эффект при ошибке (например, если инпут пустой) */
+.custom-input.error {
+    border-color: red;
+    background-color: #ffe6e6;
+}
+
+/* Стиль для контейнера инпута */
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}

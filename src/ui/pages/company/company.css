@@ -1,0 +1,35 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px;
+    font-family: sans-serif;
+}
+
+.user-card {
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.user-card h2 {
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.user-info {
+    margin-bottom: 10px;
+}
+
+.user-info span {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.notify-button {
+    margin-top: 10px;
+    text-align: right;
+}
