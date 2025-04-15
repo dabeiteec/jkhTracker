@@ -1,45 +1,59 @@
-const { pool } = require('../core/database/database');
+const { pool } = require('../database/database');
 
-async function sendNotification(userId, message) {
-    const res = await pool.query(
-      `INSERT INTO notifications (user_id, message)
-       VALUES ($1, $2)
-       RETURNING *`,
-      [userId, message]
-    );
-    return res.rows[0];
+class UtilityService {
+  // Получить все утилиты
+  async getAllUtilities() {
+    try {
+      const res = await pool.query('SELECT * FROM utilities');
+      return res.rows; // Возвращаем все утилиты
+    } catch (err) {
+      console.error('Ошибка при получении утилит:', err);
+      throw err;
+    }
   }
 
+  // Добавить утилиту
+  async addUtility(name, pricePerUnit, company) {
+    try {
+      const query = 'INSERT INTO utilities (name, price_per_unit, company) VALUES ($1, $2, $3) RETURNING *';
+      const values = [name, pricePerUnit, company];
+      const res = await pool.query(query, values);
+      return res.rows[0]; // Возвращаем добавленную утилиту
+    } catch (err) {
+      console.error('Ошибка при добавлении утилиты:', err);
+      throw err;
+    }
+  }
 
-async function getAllUsersWithUtilities() {
-  const query = `
-    SELECT 
-      u.id AS user_id,
-      u.full_name,
-      ut.name AS utility_name,
-      c.name AS company_name,
-      uu.meter_value,
-      uu.last_payment,
-      ROUND((uu.meter_value * ut.price_per_unit)::numeric, 2) AS current_due,
-      CASE 
-        WHEN uu.last_payment >= (uu.meter_value * ut.price_per_unit) THEN true
-        ELSE false
-      END AS is_paid
-    FROM users u
-    JOIN user_utilities uu ON u.id = uu.user_id
-    JOIN utilities ut ON uu.utility_id = ut.id
-    JOIN companies c ON ut.company_id = c.id
-    WHERE u.role = 'user'
-    ORDER BY u.id;
-  `;
+  // Удалить утилиту по ID
+  async deleteUtility(id) {
+    try {
+      const query = 'DELETE FROM utilities WHERE id = $1 RETURNING *';
+      const values = [id];
+      const res = await pool.query(query, values);
+      return res.rows[0]; // Возвращаем удаленную утилиту (если нужно)
+    } catch (err) {
+      console.error('Ошибка при удалении утилиты:', err);
+      throw err;
+    }
+  }
 
-  try {
-    const res = await pool.query(query);
-    return res.rows;
-  } catch (err) {
-    console.error('Error getting users with utilities:', err);
-    throw err;
+  // Отправить уведомление
+  async sendNotification(userId, message) {
+    try {
+      const res = await pool.query(
+        `INSERT INTO notifications (user_id, message) 
+        VALUES ($1, $2) 
+        RETURNING *`,
+        [userId, message]
+      );
+      return res.rows[0]; // Возвращаем созданное уведомление
+    } catch (err) {
+      console.error('Ошибка при отправке уведомления:', err);
+      throw err;
+    }
   }
 }
 
-module.exports = { getAllUsersWithUtilities };
+// Экспортируем класс для использования в других частях приложения
+module.exports = UtilityService;

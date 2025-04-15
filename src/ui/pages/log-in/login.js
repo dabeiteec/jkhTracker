@@ -15,9 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-function login() {
+async function login() {
     const loginInput = document.getElementById('login');
     const passwordInput = document.getElementById('password');
+    
+    const STORAGE_KEY = 'userId';
 
     const login = loginInput.value.trim();
     const password = passwordInput.value.trim();
@@ -27,13 +29,24 @@ function login() {
         return;
     }
 
-    alert(`Логин: ${login} Пароль: ${password}`);
-
-    // после успешной проверки — переход
-    window.location.href = "../company/company.html";
+    try {
+        const response = await window.api.login(login, password);
+        if (response.success) {
+            localStorage.setItem(STORAGE_KEY, response.id);
+            if(response.role === 'admin') {
+                window.location.href = "../company/company.html"; // Переход на страницу администратора
+            }else{
+                window.location.href = "../user/user.html"; // Переход на другую страницу
+            }
+        } else {
+            alert(`Ошибка: ${response.message}`);
+        }
+    } catch (error) {
+        alert(`Произошла ошибка при входе. ${error}`);
+    }
 }
 
-function register() {
+async function register() {
     const loginInput = document.getElementById('login');
     const passwordInput = document.getElementById('password');
 
@@ -44,7 +57,17 @@ function register() {
         alert("Пожалуйста, заполните все поля!");
         return;
     }
-    
-    alert(`Регистрация: Логин: ${login} Пароль: ${password}`);
-    window.location.href = "../user/user.html";
+
+    try {
+        const response = await window.api.register(login, password);
+        if (response.success) {
+            alert('Регистрация прошла успешно!');
+            // window.location.href = "../user/user.html";
+        } else {
+            alert(`Ошибка: ${response.message}`);
+        }
+    } catch (error) {
+        console.error("Ошибка при регистрации:", error);
+        alert("Произошла ошибка при регистрации.");
+    }
 }

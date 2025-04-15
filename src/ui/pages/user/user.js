@@ -24,3 +24,32 @@ services.forEach(service => {
 
     servicesContainer.appendChild(card);
 });
+
+document.addEventListener('DOMContentLoaded', async function () {
+    // Навигация
+    const depositButton = document.getElementById('toDeposit');
+    depositButton.addEventListener('click', function () {
+        window.location.href = "../deposit/payment.html";
+    });
+    const providerButton = document.getElementById('toProvider');
+    providerButton.addEventListener('click', function () {
+        window.location.href = "../providers/provider.html";
+    });
+    const balanceElement = document.getElementById('balance');
+    const userId = localStorage.getItem('userId');
+    
+    if (userId) {
+        try {
+            const response = await window.api.getUserBalance(userId);
+            if (response.success) {
+                balanceElement.innerHTML = `Баланс: ${response.balance} ₽`;
+            } else {
+                balanceElement.innerHTML = `Ошибка получения баланса: ${response.message}`;
+            }
+        } catch (error) {
+            balanceElement.innerHTML = `Произошла ошибка: ${error.message}`;
+        }
+    } else {
+        balanceElement.innerHTML = 'Пользователь не найден. Пожалуйста, войдите заново.';
+    }
+});

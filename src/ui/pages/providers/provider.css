@@ -1,0 +1,32 @@
+/* Общие стили для карточек */
+.service-card {
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.service-card .service-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.service-card .service-info {
+    margin-top: 10px;
+    font-size: 1.1rem;
+}
+
+.service-card .add-button {
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.service-card .add-button:hover {
+    background-color: #45a049;
+}

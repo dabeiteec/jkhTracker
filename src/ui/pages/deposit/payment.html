@@ -11,9 +11,12 @@
     <link rel="stylesheet" href="../../shared/input.css"> 
 </head>
 <body>
+    <nav>
+        <button class="back-button" onclick="window.history.back()">Назад</button>
+    </nav>
     <div class="container">
         <h1>Пополнить баланс</h1>
-        <p>Баланс: 1000 рублей</p>
+        <p id="balance"></p>
         <div class="flex-column">
             <input type="number" id="amount" class="custom-input" placeholder="Сумма" />
             <div class="button-container">
