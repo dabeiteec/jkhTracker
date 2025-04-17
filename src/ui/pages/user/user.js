@@ -1,43 +1,9 @@
-// Заглушка: данные по услугам
-const services = [
-    { id: 1, name: "Газ", pricePerUnit: 6.5 },
-    { id: 2, name: "Вода", pricePerUnit: 4.2 },
-    { id: 3, name: "Электричество", pricePerUnit: 5.8 },
-];
-
-const servicesContainer = document.getElementById('servicesContainer');
-
-services.forEach(service => {
-    const card = document.createElement('div');
-    card.className = 'service-card';
-
-    card.innerHTML = `
-        <div class="service-header">${service.name}</div>
-        <div class="input-group">
-            <label for="input-${service.id}">Показания:</label>
-            <input type="number" class="custom-input" id="input-${service.id}" min="0" />
-        </div>
-        <div class="pay-button">
-            <button class="button">Оплатить ${service.name}</button>
-        </div>
-    `;
-
-    servicesContainer.appendChild(card);
-});
-
 document.addEventListener('DOMContentLoaded', async function () {
-    // Навигация
-    const depositButton = document.getElementById('toDeposit');
-    depositButton.addEventListener('click', function () {
-        window.location.href = "../deposit/payment.html";
-    });
-    const providerButton = document.getElementById('toProvider');
-    providerButton.addEventListener('click', function () {
-        window.location.href = "../providers/provider.html";
-    });
     const balanceElement = document.getElementById('balance');
     const userId = localStorage.getItem('userId');
+    navigationButtons();
     
+
     if (userId) {
         try {
             const response = await window.api.getUserBalance(userId);
@@ -53,3 +19,57 @@ document.addEventListener('DOMContentLoaded', async function () {
         balanceElement.innerHTML = 'Пользователь не найден. Пожалуйста, войдите заново.';
     }
 });
+const navigationButtons =()=>{
+    const depositButton = document.getElementById('toDeposit');
+    depositButton.addEventListener('click', function () {
+        window.location.href = "../deposit/payment.html";
+    });
+    const providerButton = document.getElementById('toProvider');
+    providerButton.addEventListener('click', function () {
+        window.location.href = "../providers/provider.html";
+    });
+}
+
+async function payService(id, utilityId) {
+    //TODO ПРОВЕРИТЬ ОПЛАТУ
+    const input = document.getElementById(`input-${id}`);
+    const value = input.value.trim();
+    const userId = localStorage.getItem('userId');
+
+    if (!value || isNaN(value) || Number(value) <= 0) {
+        alert(`Введите корректное значение для услуги`);
+        return;
+    }
+
+    if (!userId) {
+        alert("Пользователь не найден. Пожалуйста, войдите заново.");
+        return;
+    }
+
+    try {
+        const response = await window.api.payUtility({
+            userId,
+            utilityId,           // теперь используем реальный id из БД
+            meterValue: Number(value)
+        });
+
+        if (response.success) {
+            alert(`✅ Оплата прошла успешно! Списано: ${response.amount} ₽`);
+
+            // Обновим баланс
+            const balanceElement = document.getElementById('balance');
+            balanceElement.innerHTML = `Баланс: ${response.newBalance} ₽`;
+
+            // Обнулим поле
+            input.value = '';
+
+            // Обнулим цену
+            const priceElement = document.getElementById(`${id}-price`);
+            if (priceElement) priceElement.innerText = '0';
+        } else {
+            alert(`❌ Ошибка оплаты: ${response.message}`);
+        }
+    } catch (error) {
+        alert(`❌ Ошибка при выполнении оплаты: ${error.message}`);
+    }
+}

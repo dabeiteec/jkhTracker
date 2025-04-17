@@ -22,11 +22,44 @@
         <p id="balance"></p>
 
         <div class="flex-column" id="servicesContainer">
-            <!-- Карточки услуг будут вставляться сюда через JS -->
-        </div>
-
-        <div id="totalPrice" style="margin-top: 20px;">
-            <button class="button" id="payAll">Оплатить все</button>
+            <div id="servicesContainer">
+                <div class="service-card" id="service-card-1">
+                    <div class="service-header">Услуга 1</div>
+                    <div class="service-info">
+                        Цена за единицу: <span class="price-per-unit">0</span> ₽<br>
+                        Компания: <span class="company">Компания 1</span>
+                    </div>
+                    <button class="add-button" data-service-id="1">+ Подключить</button>
+                </div>
+            
+                <div class="service-card" id="service-card-2">
+                    <div class="service-header">Услуга 2</div>
+                    <div class="service-info">
+                        Цена за единицу: <span class="price-per-unit">0</span> ₽<br>
+                        Компания: <span class="company">Компания 2</span>
+                    </div>
+                    <button class="add-button" data-service-id="2">+ Подключить</button>
+                </div>
+            
+                <div class="service-card" id="service-card-3">
+                    <div class="service-header">Услуга 3</div>
+                    <div class="service-info">
+                        Цена за единицу: <span class="price-per-unit">0</span> ₽<br>
+                        Компания: <span class="company">Компания 3</span>
+                    </div>
+                    <button class="add-button" data-service-id="3">+ Подключить</button>
+                </div>
+            
+                <div class="service-card" id="service-card-4">
+                    <div class="service-header">Услуга 4</div>
+                    <div class="service-info">
+                        Цена за единицу: <span class="price-per-unit">0</span> ₽<br>
+                        Компания: <span class="company">Компания 4</span>
+                    </div>
+                    <button class="add-button" data-service-id="4">+ Подключить</button>
+                </div>
+            </div>
+            
         </div>
     </div>
 

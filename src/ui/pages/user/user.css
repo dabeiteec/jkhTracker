@@ -38,3 +38,14 @@
     margin-top: 10px;
     align-self: flex-end;
 }
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.payment-info p {
+    margin: 5px 0;
+}
+

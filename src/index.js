@@ -77,12 +77,23 @@ ipcMain.handle('getAllUtilities', async (event) => {
 
 ipcMain.handle('addUtilityToUser', async (event, userId, serviceId) => {
   try {
-    const result = await utilityService.addUtilityToUser(userId, serviceId);
-    return { success: true, message: result.message };
+    const result = await userService.addUtilityToUser(userId, serviceId);
+    return { success: true, message: 'Услуга успешно добавлена', data: result };
   } catch (err) {
+    console.error('[addUtilityToUser ERROR]', err); // добавим вывод ошибки в консоль
     return { success: false, message: err.message };
   }
 });
+ipcMain.handle('calculateUtility', async (event, userId, serviceId, inputValue) => {
+  try {
+    const result = await utilityService.calculateUtility(userId, serviceId, inputValue);
+    return { success: true, message: 'Услуга успешно рассчитана', data: result };
+  } catch (err) {
+    console.error('[calculateUtility ERROR]', err); // добавим вывод ошибки в консоль
+    return { success: false, message: err.message };
+  }
+});
+
 
 app.whenReady().then(() => {
   createWindow();

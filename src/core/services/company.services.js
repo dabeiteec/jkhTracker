@@ -5,11 +5,14 @@ class UtilityService {
   async getAllUtilities() {
     try {
       const res = await pool.query('SELECT * FROM utilities');
-      return res.rows; // Возвращаем все утилиты
+      return res.rows;
     } catch (err) {
       console.error('Ошибка при получении утилит:', err);
       throw err;
     }
+  }
+  async getUserUtilities(userId) {
+    //TODO
   }
 
   // Добавить утилиту

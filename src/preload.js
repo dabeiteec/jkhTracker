@@ -8,4 +8,5 @@ contextBridge.exposeInMainWorld('api', {
   changeUserBalance: (userId, amount) => ipcRenderer.invoke('changeUserBalance', userId, amount),
   getAllUtilities: () => ipcRenderer.invoke('getAllUtilities'),
   addUtilityToUser: (userId, serviceId) => ipcRenderer.invoke('addUtilityToUser', userId, serviceId),
+  calculateUtility: (userId, serviceId, inputValue) => ipcRenderer.invoke('calculateUtility', userId, serviceId, inputValue),
 });

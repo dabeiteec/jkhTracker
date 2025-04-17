@@ -1,35 +1,99 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оплата услуг</title>
-    <link rel="stylesheet" href="../../../global.css">
-    <link rel="stylesheet" href="./user.css">
-    <link rel="stylesheet" href="../../shared/flex-column.css">
-    <link rel="stylesheet" href="../../shared/button.css">
-    <link rel="stylesheet" href="../../shared/input.css">
-</head>
-<body>
-    <nav style="margin-bottom: 20px;">
-        <button claass="button" id='toDeposit'>Пополнить баланс</button>
-        <button class="button" id='toProvider'>Подключить услуги</button>
-        <!-- <button class="button" id='toHistory'>История платежей</button> -->
-        <button class="back-button" onclick="window.history.back()">Назад</button>
-    </nav>
-    <div class="container">
-        <h1>Услуги</h1>
-        <p id="balance"></p>
+    <!DOCTYPE html>
+    <html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Оплата услуг</title>
+        <link rel="stylesheet" href="../../../global.css">
+        <link rel="stylesheet" href="./user.css">
+        <link rel="stylesheet" href="../../shared/flex-column.css">
+        <link rel="stylesheet" href="../../shared/button.css">
+        <link rel="stylesheet" href="../../shared/input.css">
+    </head>
+    <body>
+        <nav style="margin-bottom: 20px;">
+            <button class="button" id='toDeposit'>Пополнить баланс</button>
+            <button class="button" id='toProvider'>Подключить услуги</button>
+            <!-- <button class="button" id='toHistory'>История платежей</button> -->
+            <button class="back-button" onclick="window.history.back()">Назад</button>
+        </nav>
+        <div class="container">
+            <h1>Услуги</h1>
+            <p id="balance"></p>
 
-        <div class="flex-column" id="servicesContainer">
-            <!-- Сюда вставятся карточки услуг через JS -->
+            <div class="flex-column" id="servicesContainer">
+
+                <!-- Газ -->
+                <div class="service-card">
+                    <div class="service-header">Газ</div>
+                    <div class="input-group">
+                        <label for="input-gas">Показания:</label>
+                        <input type="number" class="custom-input" id="input-gas" min="0" />
+                    </div>
+                    <div class="payment-info">
+                        <p>К оплате: <span id="gas-price">0</span> руб.</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="button" onclick="submitMeter('gas', 'Газ')">Отправить показания</button>
+                        <button class="button" onclick="payService('gas', 'Газ')">Оплатить</button>
+                    </div>
+                </div>
+            
+                <!-- Свет -->
+                <div class="service-card">
+                    <div class="service-header">Свет</div>
+                    <div class="input-group">
+                        <label for="input-electricity">Показания:</label>
+                        <input type="number" class="custom-input" id="input-electricity" min="0" />
+                    </div>
+                    <div class="payment-info">
+                        <p>К оплате: <span id="electricity-price">0</span> руб.</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="button" onclick="submitMeter('electricity', 'Свет')">Отправить показания</button>
+                        <button class="button" onclick="payService('electricity', 'Свет')">Оплатить</button>
+                    </div>
+                </div>
+            
+                <!-- Холодная вода -->
+                <div class="service-card">
+                    <div class="service-header">Холодная вода</div>
+                    <div class="input-group">
+                        <label for="input-cold-water">Показания:</label>
+                        <input type="number" class="custom-input" id="input-cold-water" min="0" />
+                    </div>
+                    <div class="payment-info">
+                        <p>К оплате: <span id="cold-water-price">0</span> руб.</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="button" onclick="submitMeter('cold-water', 'Холодная вода')">Отправить показания</button>
+                        <button class="button" onclick="payService('cold-water', 'Холодная вода')">Оплатить</button>
+                    </div>
+                </div>
+            
+                <!-- Горячая вода -->
+                <div class="service-card">
+                    <div class="service-header">Горячая вода</div>
+                    <div class="input-group">
+                        <label for="input-hot-water">Показания:</label>
+                        <input type="number" class="custom-input" id="input-hot-water" min="0" />
+                    </div>
+                    <div class="payment-info">
+                        <p>К оплате: <span id="hot-water-price">0</span> руб.</p>
+                    </div>
+                    <div class="button-group">
+                        <button class="button" onclick="submitMeter('hot-water', 'Горячая вода')">Отправить показания</button>
+                        <button class="button" onclick="payService('hot-water', 'Горячая вода')">Оплатить</button>
+                    </div>
+                </div>
+            
+            </div>
+            
+
+            <div id="totalPrice" style="margin-top: 20px;">
+                <button class="button" id="payAll">Оплатить все</button>
+            </div>
         </div>
-
-        <div id="totalPrice" style="margin-top: 20px;">
-            <button class="button" id="payAll">Оплатить все</button>
-        </div>
-    </div>
-
-    <script src="./user.js"></script>
-</body>
-</html>
+        <script src="./user.js"></script>
+    </body>
+    </html>
